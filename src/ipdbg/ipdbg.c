@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2018 by Daniel Anselmi								  *
+ *   Copyright (C) 2019 by Daniel Anselmi								  *
  *   danselmi@gmx.ch													   *
  *																		 *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -27,7 +27,7 @@
 #include <helper/time_support.h>
 
 #define IPDBG_MIN_NUM_OF_OPTIONS 4
-#define IPDBG_MAX_NUM_OF_OPTIONS 10
+#define IPDBG_MAX_NUM_OF_OPTIONS 14
 
 /* private connection data for IPDBG */
 struct ipdbg_connection {
@@ -614,7 +614,7 @@ COMMAND_HANDLER(handle_ipdbg_command)
 			}
 			else
 			{
-				command_print(CMD, "no hub given");
+				command_print(CMD, "no \"user\"-instruction register given");
 				return ERROR_FAIL;
 			}
 		}
@@ -637,6 +637,11 @@ COMMAND_HANDLER(handle_ipdbg_command)
 			if (i+1 < CMD_ARGC){
 				port = CMD_ARGV[i+1];
 				++i;
+			}
+			else
+			{
+				command_print(CMD, "no port given");
+				return ERROR_FAIL;
 			}
 		}
 		else if (strcmp(CMD_ARGV[i], "-tool") == 0){
